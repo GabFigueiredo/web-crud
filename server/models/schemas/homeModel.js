@@ -9,17 +9,17 @@ const itemSchema = new mongoose.Schema ({
         type: String, 
         required: true},
     duracao: {
-        type: String, 
+        type: Number, 
         required: true},
     descricao: {
         type: String, 
         required: true},
     preco: {
-        type: String, 
+        type: Number, 
         required: true},
     datas_disponiveis: {
         type: Array,
         required: true },
 })
 
-module.exports = mongoose.model('ItemsModel', itemSchema, 'Items')
+module.exports = mongoose.model('Items', itemSchema, 'Items')
