@@ -8,7 +8,7 @@ export function Form() {
     const [during, setDuring] = useState()
     const [desc, setDesc] = useState()
     const [price, setPrice] = useState()
-    const [date, setDate] = useState()
+    const [date, setDate] = useState([])
 
     const data = {
         nome: name,
@@ -16,14 +16,13 @@ export function Form() {
         duracao: during,
         descricao: desc,
         preco: price,
-        datas_disponiveis: function() {
-            return date.split(', ')
-        }
+        datas_disponiveis: date
     }
 
     async function sendData() {
         try {
             await axios.post("http://localhost:5000/post", data)
+            .then(res => console.log(res))
         } catch(error) {
             console.log('deu erroooo', error)
         }
@@ -31,12 +30,12 @@ export function Form() {
     
     return (
         <>
-           <input type="text" placeholder="John" onChange={(event) => setName(event.target.value)}></input> 
-           <input type="text" placeholder="Grécia" onChange={(event) => setDestiny(event.target.value)}></input> 
-           <input type="text" placeholder="12 dias" onChange={(event) => setDuring(event.target.value)}></input> 
-           <input type="text" placeholder="Embarque em uma jornada" onChange={(event) => setDesc(event.target.value)}></input> 
-           <input type="text" placeholder="$4500 por pessoa" onChange={(event) => setPrice(event.target.value)}></input> 
-           <input type="text" placeholder="Maio, Setembro" onChange={(event) => setDate(event.target.value)}></input>
+           <input type="text" name="name" placeholder="John" onChange={(event) => setName(event.target.value)}></input> 
+           <input type="text" name="destino" placeholder="Grécia" onChange={(event) => setDestiny(event.target.value)}></input> 
+           <input type="number" name="duração" placeholder="12 dias" onChange={(event) => setDuring(event.target.value)}></input> 
+           <input type="text" name="desc" placeholder="Embarque em uma jornada" onChange={(event) => setDesc(event.target.value)}></input> 
+           <input type="number" name="preço" placeholder="$4500 por pessoa" onChange={(event) => setPrice(event.target.value)}></input> 
+           <input type="text" name="data" placeholder="Maio, Setembro" onChange={(event) => setDate(event.target.value.split(', '))}></input>
            <button onClick={sendData} >AAAAA</button>
         </>
     )
