@@ -33,5 +33,16 @@
 .desc {
     border-top: solid 1px #434343;
     border-bottom: solid 1px #434343;
+    min-height: 200px;
     margin: 16px 0px 5px 0px;
+}
+
+.Icon {
+    padding: 5px;
+}
+
+.Icon:hover {
+    cursor: pointer;
+    background-color: #434343;
+    border-radius: 50%;
 }

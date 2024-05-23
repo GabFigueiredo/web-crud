@@ -19,7 +19,7 @@ export function Modal({modalStatus, setModalStatus, selectedItems}) {
                 <div className={styles.rightArticle}>
                     <div style = {{display: "flex", justifyContent: "space-between", alignItems: "center"}}>
                         <p style = {{color: "#3a3a3a", fontSize: "14px", margin: '0px'}}>id: {selectedItems._id}</p>
-                        <Icon path={mdiCloseThick} size={1} onClick={() => setModalStatus(false)}>FECHAR</Icon>
+                        <Icon className={styles.Icon} path={mdiCloseThick} size={1} onClick={() => setModalStatus(false)}>FECHAR</Icon>
                     </div>
                     <div>
                         <h1 style={{fontSize: "50px", margin: "0px"}}>{selectedItems.nome}</h1>

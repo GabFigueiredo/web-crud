@@ -10,12 +10,58 @@
 
 .modal {
     position: fixed;
+    display: flex;
+    justify-content: space-between;
     top: 50%;
     left: 50%;
+    gap: 20px;
+    transform: translate(-50%, -50%);
+}
+
+.previewSide {
     width: 80vh;
     height: 70vh;
-    transform: translate(-50%, -50%);
     background-color: #1E2021;
     border-radius: 50px;
     display: flex;
+}
+
+.modal input {
+    width: min-content;
+    height: min-content;
+}
+
+.modal h1, h2 {
+    margin-bottom: 10px;
+}
+
+.Icon {
+    padding: 5px;
+}
+
+.Icon:hover {
+    cursor: pointer;
+    background-color: #434343;
+    border-radius: 50%;
+}
+
+.input {
+    color: white;
+}
+
+.formSide {
+    display: flex;
+    gap: 20px;
+    background-color: #1E2021;
+    gap: 30px;
+    width: fit-content;
+    height: fit-content;
+    border-radius: 50px;
+    padding: 30px;
+}
+
+.img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
