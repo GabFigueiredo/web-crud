@@ -2,16 +2,27 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('cors')
 const { mongoose } = require('mongoose')
+const homeRouter = require('./routes/post')
+const imageRouter = require('./routes/image')
+const dataRouter = require('./routes/data')
+const getImageRouter = require('./routes/getImage')
+const deleteRouter = require('./routes/delete')
+const path = require('path')
+
 const app = express()
-const homeRouter = require('./routes/home')
 
 // Middlewares
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: true}))
 app.use(cors())
+app.use('/files', express.static(path.join(__dirname, 'uploads')))
 
 // Routes
 app.use('/', homeRouter)
+app.use('/', imageRouter)
+app.use('/', dataRouter)
+app.use('/', getImageRouter)
+app.use('/', deleteRouter)
 
 // Connect to database
 try {

@@ -1,4 +1,3 @@
-const mongoose = require('mongoose')
 const itemsModel = require('./schemas/homeModel')
 
 module.exports = async (req, res) => {

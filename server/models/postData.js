@@ -10,7 +10,6 @@ module.exports = async (req, res) => {
     }
     
     const data = req.body
-    console.log(data)
 
     newItem = new item({
         nome: data.nome,
@@ -18,12 +17,16 @@ module.exports = async (req, res) => {
         duracao: data.duracao,
         descricao: data.descricao,
         preco: data.preco,
-        datas_disponiveis: data.datas_disponiveis
+        datas_disponiveis: data.datas_disponiveis,
+        imageId: data.imageId
     })
 
     try {
         newItem.save()
-        res.status(200).send(data)
+        res.status(200).json({
+            message: "Itens enviados com sucesso",
+            data: data
+        })
     } catch {
         res.status(500)
     }

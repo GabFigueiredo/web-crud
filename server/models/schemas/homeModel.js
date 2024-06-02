@@ -20,6 +20,10 @@ const itemSchema = new mongoose.Schema ({
     datas_disponiveis: {
         type: Array,
         required: true },
+    imageId: {
+        type: String,
+        required: true
+    },
 })
 
 module.exports = mongoose.model('Items', itemSchema, 'Items')
