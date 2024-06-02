@@ -14,7 +14,7 @@ export function Modal({modalStatus, setModalStatus, selectedItems}) {
         <div className={styles.background}>
             <div className={styles.modal}>
                 <div className={styles.leftArticle}>
-                    
+                    <img className={styles.img} src={`http://localhost:5000/files/${selectedItems.imageId}.jpg`} alt="Description" />
                 </div>
                 <div className={styles.rightArticle}>
                     <div style = {{display: "flex", justifyContent: "space-between", alignItems: "center"}}>

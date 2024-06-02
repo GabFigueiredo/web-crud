@@ -39,7 +39,7 @@
 .main {
     grid-column: 2/3;
     background-color: #1E2021;
-    height: 70vh;
+    height: fit-content;
 }
 
 .searchBox {
@@ -58,6 +58,7 @@
 
 .center {
     display: grid;
+    background-color: #131516;
     grid-template-columns: 1.5fr 4fr 1.5fr;
 }
 
@@ -83,14 +84,15 @@
 .li {
     display: grid;
     grid-template-columns: 2fr 1fr 1fr;
-    border-top: solid 1px #525252;
-    border-left: solid 1px #525252;
-    border-right: solid 1px #525252;
     padding: 20px 20px 20px 20px;
 }
 
+.li:hover {
+    background-color: #383838;
+}
+
 .li:last-child {
-    border-bottom: solid 1px #525252;
+    
 }
 
 .h3 {
@@ -147,15 +149,32 @@
 }
 
 .createBox {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    background-color: #006198;
+    border-bottom: none;
+    height: 100%;
+}
+
+
+.mdiPlus {
+    grid-column: 1/2;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #006198;
-    border-bottom: none;
-    padding: 10px 20px 10px 20px;
 }
 
-.createBox:hover {
+.mdiTrashCanOutline {
+    grid-column: 2/3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.mdiPlus:hover,
+.mdiTrashCanOutline:hover {
     background-color: #007ec7;
     cursor: pointer;
 }
+
+

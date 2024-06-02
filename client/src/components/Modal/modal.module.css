@@ -46,3 +46,13 @@
     background-color: #434343;
     border-radius: 50%;
 }
+
+.nameContainer {
+    min-height: 200px;
+}
+
+.img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}

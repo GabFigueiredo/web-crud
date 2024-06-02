@@ -1,4 +1,4 @@
-import React, { useEffect } from "react"
+import React from "react"
 import { useState } from "react"
 import axios from "axios"
 import styles from './form.module.css'
@@ -54,11 +54,7 @@ export function Form({createModal, setCreateModal}) {
     const [desc, setDesc] = useState('')
     const [price, setPrice] = useState('')
     const [date, setDate] = useState([])
-    const [image, setImage] = useState(null)
-
-    useEffect(() => {
-        console.log(image)
-    }, [image])
+    const [imagePath, setImagePath] = useState('')
 
     const data = {
         nome: name,
@@ -66,7 +62,8 @@ export function Form({createModal, setCreateModal}) {
         duracao: during,
         descricao: desc,
         preco: price,
-        datas_disponiveis: date
+        datas_disponiveis: date,
+        imageId: imagePath
     }
     
     function closeModal() {
@@ -76,13 +73,28 @@ export function Form({createModal, setCreateModal}) {
         setDesc('')
         setPrice('')
         setDate('')
+        setImagePath('')
         setCreateModal(false)
     }
 
-    function handleImage(event) {
-        setImage(event.target.files[0], () => {
-            console.log(image)
-        })
+    async function handleImage(event) {
+        const file = event.target.files[0];
+
+        const formData = new FormData();
+        formData.append('file', file);
+    
+        try {
+            const res = await axios.post('http://localhost:5000/upload', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            });
+
+            setImagePath(`http://localhost:5000/files/${res.data.file.filename}`)
+            
+        } catch (err) {
+            console.error('Erro ao enviar a imagem: ', err);
+        }
     }
 
     async function sendData() {
@@ -172,12 +184,14 @@ export function Form({createModal, setCreateModal}) {
                     </div>
                     <div className={styles.previewSide}>
                         <div className={modal.leftArticle}>
-                            <img className={styles.img} src={image ? image : null} alt="Description" />
+                            <img className={styles.img} src={imagePath === "" ? `http://localhost:5000/files/blue-green-fade.jpg` : imagePath} alt="Description" />
                         </div>
                         <div className={modal.rightArticle}>
                             <div>
-                                <h1 style={{fontSize: "50px", margin: "0px"}}>{name}</h1>
-                                <p style={{color: "#56cef6", margin: "0px"}}>{destiny}</p>
+                                <div className={modal.nameContainer}>
+                                    <h1 style={{fontSize: "50px", margin: "0px"}}>{name}</h1>
+                                    <p style={{color: "#56cef6", margin: "0px"}}>{destiny}</p>
+                                </div>
                             </div>
                             <div className={modal.desc}>
                                 <p style= {{lineHeight: "1.8"}}>{desc}</p>
