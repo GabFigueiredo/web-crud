@@ -1,4 +1,4 @@
-const itemsModel = require('./schemas/homeModel')
+const itemsModel = require('../models/homeModel')
 
 module.exports = async (req, res) => {
     const id = req.params.id
@@ -9,6 +9,7 @@ module.exports = async (req, res) => {
         res.status(400).json({
             message: "Erro ao tentar apagar do banco de dados",
             data: err,
-    })
+        })
     }
 }
+

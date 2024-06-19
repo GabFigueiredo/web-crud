@@ -3,27 +3,28 @@
     /* Animation background */
     /* Animation Background */
     grid-template-columns: 1.5fr 4fr 1.5fr;
-    background-image: linear-gradient(
-                                90deg,
-                                hsl(236deg 69% 23%) 0%,
-                                hsl(216deg 100% 23%) 20%,
-                                hsl(209deg 100% 26%) 40%,
-                                hsl(204deg 100% 29%) 60%,
-                                hsl(198deg 100% 31%) 80%,
-                                hsl(195deg 78% 36%) 100%);
+    background-image: linear-gradient(90deg,
+            hsl(236deg 69% 23%) 0%,
+            hsl(216deg 100% 23%) 20%,
+            hsl(209deg 100% 26%) 40%,
+            hsl(204deg 100% 29%) 60%,
+            hsl(198deg 100% 31%) 80%,
+            hsl(195deg 78% 36%) 100%);
 }
 
 @keyframes gradient {
 
-	0% {
-		background-position: 0% 50%;
-	}
-	50% {
-		background-position: 100% 50%;
-	}
-	100% {
-		background-position: 0% 50%;
-	}
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
 }
 
 .navbar {
@@ -32,8 +33,8 @@
     width: 100%;
     height: 50px;
     background: linear-gradient(90deg, #121862, #1481A6, #121862, #1481A6);
-	background-size: 400% 400%;
-	animation: gradient 20s ease infinite;
+    background-size: 400% 400%;
+    animation: gradient 20s ease infinite;
 }
 
 .main {
@@ -72,7 +73,7 @@
 .input {
     padding-left: 25px;
     width: 0
-  }
+}
 
 .ul {
     display: flex;
@@ -80,7 +81,7 @@
     padding: 0;
     margin-top: 0;
 }
-  
+
 .li {
     display: grid;
     grid-template-columns: 2fr 1fr 1fr;
@@ -91,9 +92,7 @@
     background-color: #383838;
 }
 
-.li:last-child {
-    
-}
+.li:last-child {}
 
 .h3 {
     margin: 0;
@@ -150,7 +149,7 @@
 
 .createBox {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
     background-color: #006198;
     border-bottom: none;
     height: 100%;
@@ -164,6 +163,13 @@
     align-items: center;
 }
 
+.updateMdi {
+    grid-column: 3/4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .mdiTrashCanOutline {
     grid-column: 2/3;
     display: flex;
@@ -172,9 +178,8 @@
 }
 
 .mdiPlus:hover,
-.mdiTrashCanOutline:hover {
+.mdiTrashCanOutline:hover,
+.updateMdi:hover {
     background-color: #007ec7;
     cursor: pointer;
 }
-
-

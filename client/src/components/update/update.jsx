@@ -1,9 +1,9 @@
-import { React, useState } from "react";
-import axios from "axios";
-import styles from './delete.module.css'
+import { React, useState, useEffect } from "react";
+import modalStyle from '../delete/delete.module.css'
 import { styled } from '@mui/material/styles';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
+import axios from 'axios'
 
 const CustomTextField = styled(TextField)({
     '& .MuiOutlinedInput-root': {
@@ -29,25 +29,24 @@ const CustomTextField = styled(TextField)({
     },
 });
 
-
-export function Delete({ deleteModal, setDeleteModal }) {
+export function Update({ updateModal, setUpdateModal }) {
     const [itemID, setItemID] = useState('')
 
-    async function deleteItem() {
+    async function editItem() {
         try {
-            const res = await axios.delete(`http://localhost:5000/delete/${itemID}`)
-            console.log(res)
-        } catch (err) {
-            console.error('Erro ao enviar o pedido', err)
+            const res = await axios.get('http://localhost:5000/update')
+            console.log(res.data)
+        } catch (error) {
+            console.log('Erro ao buscar item por ID: ', error)
         }
     }
 
-    if (deleteModal) {
+    if (updateModal) {
         return (
-            <div className={styles.background}>
-                <div className={styles.modal}>
+            <div className={modalStyle.background}>
+                <div className={modalStyle.modal}>
                     <div>
-                        <h1 style={{ marginTop: '0px' }}>Deletar item por ID</h1>
+                        <h1 style={{ marginTop: '0px' }}>Editar item por ID</h1>
                     </div>
                     <div>
                         <CustomTextField
@@ -59,7 +58,7 @@ export function Delete({ deleteModal, setDeleteModal }) {
                         />
                     </div>
                     <Button
-                        onClick={deleteItem}
+                        onClick={editItem}
                         variant="outlined"
                         size="large"
                         sx={{
@@ -73,12 +72,10 @@ export function Delete({ deleteModal, setDeleteModal }) {
                             }
                         }}
                     >
-                        Deletar
+                        Editar
                     </Button>
                 </div>
-            </div >)
-    } else {
-        return (<></>)
+            </div>)
     }
 
 }

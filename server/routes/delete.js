@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const deleteItem = require('../models/delete')
+const deleteItem = require('../controllers/delete')
 
 router.delete('/delete/:id', deleteItem)
 

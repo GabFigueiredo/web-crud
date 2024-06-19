@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-const item = require('./schemas/homeModel')
+const item = require('../models/homeModel')
 const { validationResult } = require('express-validator')
 
 module.exports = async (req, res) => {
@@ -8,7 +8,7 @@ module.exports = async (req, res) => {
     if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
     }
-    
+
     const data = req.body
 
     newItem = new item({
