@@ -1,5 +1,5 @@
-const mongoose = require('mongoose')
-const item = require('../models/homeModel')
+// const mongoose = require('mongoose')
+const pool = require('../models/postgres')
 const { validationResult } = require('express-validator')
 
 module.exports = async (req, res) => {
@@ -8,27 +8,24 @@ module.exports = async (req, res) => {
     if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
     }
-
-    const data = req.body
-
-    newItem = new item({
-        nome: data.nome,
-        destino: data.destino,
-        duracao: data.duracao,
-        descricao: data.descricao,
-        preco: data.preco,
-        datas_disponiveis: data.datas_disponiveis,
-        imageId: data.imageId
-    })
+    const { nome, destino, duracao, descricao, preco, datas_disponiveis, imageId } = req.body
+    const query = 'INSERT INTO Trips (nome, destino, duracao, descricao, preco, datas_disponiveis, image_id) VALUES ($1, $2, $3, $4, $5, $6, $7)'
 
     try {
-        newItem.save()
+        pool.connect()
+        await pool.query(query, [nome, destino, duracao, descricao, preco, datas_disponiveis, imageId])
+        await pool.end()
+
         res.status(200).json({
             message: "Itens enviados com sucesso",
             data: data
         })
-    } catch {
-        res.status(500)
+
+    } catch (error) {
+        res.status(400).json({
+            message: 'Erro ao enviar dados',
+            data: err
+        })
     }
 
 }

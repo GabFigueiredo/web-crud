@@ -1,10 +1,12 @@
-const itemsModel = require('../models/homeModel')
+const pool = require('../models/postgres')
 
 module.exports = async (req, res) => {
   const id = req.params.id
   console.log(id)
   try {
-    const response = await itemsModel.findById(id)
+    await pool.connect()
+    const response = await pool.query(`SELECT * FROM Trips WHERE id = $1`, [id])
+    await pool.end()
     res.status(200).json({
       message: "Item encontrado com sucesso!",
       data: response

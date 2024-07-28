@@ -1,9 +1,12 @@
-const itemsModel = require('../models/homeModel')
+const pool = require('../models/postgres')
 
 module.exports = async (req, res) => {
     const id = req.params.id
+    
     try {
-        await itemsModel.findByIdAndDelete(id)
+        await pool.connect()
+        await pool.query('DELETE FROM Trips WHERE id = $1', id)
+        await pool.end()
         res.status(200).send("Item excluído com sucesso")
     } catch (err) {
         res.status(400).json({

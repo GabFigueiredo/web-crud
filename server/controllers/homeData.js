@@ -1,8 +1,10 @@
-const itemsModel = require('../models/homeModel')
+const pool = require('../models/postgres')
 
 module.exports = async (req, res) => {
     try {
-        const items = await itemsModel.find()
+        await pool.connect()
+        const items = await pool.query('SELECT * FROM Trips')
+        await pool.end()
         console.log('GET FOI CHAMADO')
         res.json(items)
     } catch (error) {
