@@ -1,7 +1,10 @@
-const path = require('path')
-const express = require('express')
-const router = express.Router()
+const cors = require('./cors.js')
+const bodyParser = require('./body-parser.js')
 
-router.use('/files', express.static(path.join(__dirname, 'uploads')))
-
-module.exports = router
+const middlewares = [
+    cors,           // Middleware de CORS
+    bodyParser.json, // Middleware para parsing JSON
+    bodyParser.urlencoded, // Middleware para parsing URL-encoded
+  ];
+  
+module.exports = middlewares;

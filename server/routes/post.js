@@ -9,8 +9,7 @@ router.post('/post', [
     body('duracao', 'O campo duração deve ser um número').notEmpty().isNumeric(),
     body('preco', 'O campo preço deve ser um número').notEmpty().isNumeric(),
     body('descricao', 'O campo descrição deve ser uma string entre 100 e 200 caracteres').notEmpty().isString(),
-    body('datas_disponiveis', 'O valor de datas_disponiveis tem que ser um string').notEmpty().isString(),
-    body('imageId', 'O id da imagem tem que ser uma string').notEmpty().isString()
+    body('datas_disponiveis', 'O valor de datas_disponiveis tem que ser um string').notEmpty().isString()
 ], postData, (req, res) => {
     res.status(200).send("Pedidos concluídos")
 })

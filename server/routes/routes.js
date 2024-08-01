@@ -8,6 +8,7 @@ const getImageRouter = require('./getImage')
 const deleteRouter = require('./delete')
 const updateRouter = require('./getUpdate')
 const update = require('./update')
+const deleteImage = require('./deleteImage')
 
 // Routes
 router.use('/', homeRouter)
@@ -17,5 +18,6 @@ router.use('/', getImageRouter)
 router.use('/', deleteRouter)
 router.use('/', updateRouter)
 router.use('/', update)
+router.use('/', deleteImage)
 
 module.exports = router
