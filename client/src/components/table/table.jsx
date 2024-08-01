@@ -2,20 +2,22 @@ import {React, useState, useEffect} from "react";
 import { Modal } from "../Modal/modal";
 import styles from "../home/home.module.css"
 import axios from 'axios'
+import Icon from '@mdi/react';
+import { mdiMagnify } from '@mdi/js'
 
 export function Table() {
     const [items, setItems] = useState([])
     const [readModal, setReadModal] = useState(false)
-    const [selectedItems, setSelectedItems] = useState({})
+    const [selectedItem, setSelectedItem] = useState({})
 
     function titleClick(item) {
         setReadModal(true)
-        setSelectedItems(item)
+        setSelectedItem(item)
     }
 
     useEffect(() => {
         async function axiosGet() {
-           try {
+            try {
                const response = await axios.get('http://localhost:5000/data')
                setItems(response.data)
            } catch(error) {
@@ -26,6 +28,11 @@ export function Table() {
    }, [])
     
     return (<>
+                <nav className={styles.navbar}>
+            <div className={styles.searchBox}>
+                <Icon className={styles.icon} path={mdiMagnify} size={1.5}></Icon>
+            </div>
+        </nav>
         <div className={styles.center}>
             <main className={styles.main}>
                 <div className={styles.category}>
@@ -50,14 +57,14 @@ export function Table() {
                                         <p className={styles.pDestiny}>{item.duracao} Dias</p>
                                     </div>
                                     <div>
-                                        <p className={styles.pDestiny}>{item.datas_disponiveis.join(', ')}</p>
+                                        <p className={styles.pDestiny}>{item.datas_disponiveis}</p>
                                     </div>
                                 </li>
                     })}
                 </ul>
             </main>
         </div>
-        <Modal modalStatus={readModal} setModalStatus={setReadModal} selectedItems={selectedItems}></Modal>
-    </>    
+        <Modal readModal={readModal} setReadModal={setReadModal} selectedItem={selectedItem}></Modal>
+    </>
     )
 }

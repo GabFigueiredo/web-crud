@@ -1,4 +1,4 @@
-import { React, useState } from "react";
+import { React, useEffect, useState } from "react";
 import axios from "axios";
 import styles from './delete.module.css'
 import { styled } from '@mui/material/styles';
@@ -24,30 +24,37 @@ const CustomTextField = styled(TextField)({
     '& .MuiInputLabel-root': {
         color: 'white', // cor do label padrão
     },
-    '& .MuiInputLabel-root.Mui-focused': {
+    '& ..Mui-focused': {
         color: '#56cef6', // cor do label quando focado
     },
 });
 
-
-export function Delete({ deleteModal, setDeleteModal }) {
+export function ConfirmationModal({ confirmationModal, setConfirmationModal, setSelectedItem, setReadModal, setCreateModal, option}) {
     const [itemID, setItemID] = useState('')
 
-    async function deleteItem() {
+    async function searchSingleItem() {
         try {
-            const res = await axios.delete(`http://localhost:5000/delete/${itemID}`)
-            console.log(res)
-        } catch (err) {
-            console.error('Erro ao enviar o pedido', err)
+            const res = await axios.get(`http://localhost:5000/getUpdate/${itemID}`)
+            setSelectedItem(res.data.data.rows[0])
+        } catch(error) {
+            console.log('Aconteceu um erro no cliente', error)
+        }
+        setConfirmationModal(false)
+
+        if (option === 'delete') {
+            setReadModal(true)
+        } else if (option === 'edit') {
+            setCreateModal(true)
         }
     }
 
-    if (deleteModal) {
+    if (confirmationModal) {
         return (
-            <div className={styles.background}>
-                <div className={styles.modal}>
+            <>
+            <div onClick= {() => setConfirmationModal(false)} className={styles.background}>
+                <div onClick= {(e) => e.stopPropagation()} className={styles.modal}>
                     <div>
-                        <h1 style={{ marginTop: '0px' }}>Deletar item por ID</h1>
+                        <h1 style={{ marginTop: '0px' }}>Visualizar o item por id</h1>
                     </div>
                     <div>
                         <CustomTextField
@@ -56,29 +63,22 @@ export function Delete({ deleteModal, setDeleteModal }) {
                             value={itemID}
                             variant="outlined"
                             onChange={(event) => setItemID(event.target.value)}
+                            sx = {{width: '100%'}}
                         />
                     </div>
                     <Button
-                        onClick={deleteItem}
+                        onClick={() => searchSingleItem()}
                         variant="outlined"
                         size="large"
                         sx={{
                             borderColor: 'gray',
-                            color: 'gray',
+                            color: 'success',
                             marginTop: "10px",
-                            '&:hover': {
-                                borderColor: 'red',
-                                color: 'red',
-                                backgroundColor: 'rgba(255, 0, 0, 0.1)',
-                            }
                         }}
-                    >
-                        Deletar
+                    > Visualizar item
                     </Button>
                 </div>
-            </div >)
-    } else {
-        return (<></>)
+            </div>
+            </>)
     }
-
 }

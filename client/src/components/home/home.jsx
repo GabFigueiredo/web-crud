@@ -1,15 +1,28 @@
 import { React, useState } from "react";
 import styles from "./home.module.css"
 import Icon from '@mdi/react';
-import { mdiPineTreeBox, mdiMagnify, mdiAccountCircle, mdiPlus, mdiTrashCanOutline, mdiFileEditOutline } from '@mdi/js'
+import { mdiPineTreeBox, mdiAccountCircle, mdiPlus, mdiTrashCanOutline, mdiFileEditOutline } from '@mdi/js'
 import { Form } from "../form/form";
-import { Delete } from "../delete/delete";
-import { Update } from "../update/update";
+import { Modal } from "../Modal/modal";
+import { ConfirmationModal } from "../delete/confirmationModal";
+
 
 export function Home() {
     const [createModal, setCreateModal] = useState(false)
-    const [deleteModal, setDeleteModal] = useState(false)
-    const [updateModal, setUpdateModal] = useState(false)
+    const [readModal, setReadModal] = useState(false)
+    const [selectedItem, setSelectedItem] = useState({})
+    const [confirmationModal, setConfirmationModal] = useState(false)
+    const [option, setOption] = useState('')
+
+    function deleteOption() {
+        setConfirmationModal(true)
+        setOption('delete')
+    }
+
+    function editOption() {
+        setConfirmationModal(true)
+        setOption('edit')
+    }
 
     return (<>
         <header className={styles.header}>
@@ -27,25 +40,24 @@ export function Home() {
                         <div className={styles.mdiPlus} onClick={() => setCreateModal(true)}>
                             <Icon path={mdiPlus} size={1}></Icon>
                         </div>
-                        <div className={styles.mdiTrashCanOutline} onClick={() => setDeleteModal(true)}>
+                        <div className={styles.mdiTrashCanOutline} onClick={() => deleteOption()}>
                             <Icon path={mdiTrashCanOutline} size={1}></Icon>
                         </div>
                         <div className={styles.updateMdi}>
-                            <Icon path={mdiFileEditOutline} onClick={() => setUpdateModal(true)} size={1}></Icon>
+                            <Icon path={mdiFileEditOutline} onClick={() => editOption()} size={1}></Icon>
                         </div>
                     </div>
                 </div>
             </div>
         </header>
-        <nav className={styles.navbar}>
-            <div className={styles.searchBox}>
-                <Icon className={styles.icon} path={mdiMagnify} size={1.5}></Icon>
 
-            </div>
-        </nav>
-        <Form createModal={createModal} setCreateModal={setCreateModal}> </Form>
-        <Delete deleteModal={deleteModal} setDeleteModal={setDeleteModal}></Delete>
-        <Update updateModal={updateModal} setUpdateModal={setUpdateModal}></Update>
+        <Form createModal={createModal} setCreateModal={setCreateModal} selectedItem={selectedItem} option={option} setOption={setOption}> </Form>
+        <Modal readModal={readModal} setReadModal={setReadModal}
+        selectedItem={selectedItem} option={option}></Modal>
+        <ConfirmationModal
+            confirmationModal={confirmationModal} setConfirmationModal={setConfirmationModal}
+            setSelectedItem={setSelectedItem} setReadModal={setReadModal}
+            setCreateModal={setCreateModal} option={option}>
+        </ConfirmationModal>
     </>)
 }
-

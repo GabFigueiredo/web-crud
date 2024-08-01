@@ -1,4 +1,4 @@
-import { React, useState, useEffect } from "react";
+import { React, useState } from "react";
 import modalStyle from '../delete/delete.module.css'
 import { styled } from '@mui/material/styles';
 import TextField from '@mui/material/TextField';
@@ -29,22 +29,29 @@ const CustomTextField = styled(TextField)({
     },
 });
 
-export function Update({ updateModal, setUpdateModal }) {
-    const [itemID, setItemID] = useState('')
 
-    async function editItem() {
+export function Update({ updateModal, setUpdateModal, setCreateModal, setItemsFromUpdate }) {
+    const [itemID, setItemID] = useState('')
+    async function searchSingleItem() {
         try {
-            const res = await axios.get('http://localhost:5000/update')
-            console.log(res.data)
-        } catch (error) {
-            console.log('Erro ao buscar item por ID: ', error)
+            const res = await axios.get(`http://localhost:5000/getUpdate/${itemID}`)
+            setItemsFromUpdate(res.data.data.rows[0])
+        } catch(error) {
+            console.log('Aconteceu um erro no cliente', error)
         }
+    }
+    
+    async function handleClickItem() {
+        setUpdateModal(false)
+        setCreateModal(true)
+        searchSingleItem()
     }
 
     if (updateModal) {
         return (
-            <div className={modalStyle.background}>
-                <div className={modalStyle.modal}>
+            <div onClick={() => setUpdateModal(false)} className={modalStyle.background}>
+                <div style={{width: '100%', height: '100%', zIndex: '1'}}onClick={() => setUpdateModal(false)}></div>
+                <div onClick={(e) => e.stopPropagation()} className={modalStyle.modal}>
                     <div>
                         <h1 style={{ marginTop: '0px' }}>Editar item por ID</h1>
                     </div>
@@ -58,7 +65,7 @@ export function Update({ updateModal, setUpdateModal }) {
                         />
                     </div>
                     <Button
-                        onClick={editItem}
+                        onClick={() => handleClickItem()}
                         variant="outlined"
                         size="large"
                         sx={{
