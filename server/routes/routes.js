@@ -1,23 +1,36 @@
 const express = require('express')
 const router = express.Router()
 
-const homeRouter = require('./post')
-const imageRouter = require('./image')
-const dataRouter = require('./data')
-const getImageRouter = require('./getImage')
-const deleteRouter = require('./delete')
-const updateRouter = require('./getUpdate')
-const update = require('./update')
-const deleteImage = require('./deleteImage')
+// Get Routes
+const dataRouter = require('./Get/data')
+const getImageRouter = require('./Get/getImage')
+const updateRouter = require('./Get/singleItem')
 
-// Routes
-router.use('/', homeRouter)
-router.use('/', imageRouter)
+// Delete Routes
+const deleteRouter = require('./Delete/delete')
+const deleteImage = require('./Delete/deleteImage')
+
+// Post Routes
+const homeRouter = require('./Post/post')
+const imageRouter = require('./Post/image')
+
+// Put Routes
+const update = require('./Put/update')
+
+// Get
 router.use('/', dataRouter)
 router.use('/', getImageRouter)
-router.use('/', deleteRouter)
 router.use('/', updateRouter)
-router.use('/', update)
+
+// Delete
+router.use('/', deleteRouter)
 router.use('/', deleteImage)
+
+// Post
+router.use('/', homeRouter)
+router.use('/', imageRouter)
+
+// Put
+router.use('/', update)
 
 module.exports = router

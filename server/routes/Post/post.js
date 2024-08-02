@@ -1,5 +1,5 @@
 const express = require('express')
-const postData = require('../controllers/postData')
+const postData = require('../../controllers/Post/post')
 const router = express.Router()
 const { body } = require('express-validator')
 

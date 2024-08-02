@@ -1,4 +1,4 @@
-const pool = require('../models/postgres')
+const pool = require('../../models/postgres')
 const { validationResult } = require('express-validator')
 
 module.exports = async (req, res) => {

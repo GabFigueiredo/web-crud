@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const update = require("../controllers/update")
+const update = require("../../controllers/Put/update")
 
 router.put("/update/:id", update)
 

@@ -1,7 +1,7 @@
 const express = require('express')
-const homeData = require('../controllers/homeData')
+const data = require('../../controllers/Get/data')
 const router = express.Router()
 
-router.get('/data', homeData)
+router.get('/data', data)
 
 module.exports = router

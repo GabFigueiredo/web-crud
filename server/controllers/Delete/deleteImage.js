@@ -1,6 +1,6 @@
 const fs = require('fs')
 const path = require('path');
-const pool = require('../models/postgres')
+const pool = require('../../models/postgres')
 
 function deletar(filename, id, idFromBody) {
     filename = filename + `/${id}.jpg`
@@ -15,10 +15,12 @@ function deletar(filename, id, idFromBody) {
 
 module.exports = async (req, res) => {
     const id = req.params.id.slice(0, -4);
+    let client
     let idFromBody
+
     if (id) {
-        pool.connect()
-        idFromBody = await pool.query('SELECT image_id FROM Trips WHERE image_id = $1', [id])
+        client = await pool.connect()
+        idFromBody = await client.query('SELECT image_id FROM Trips WHERE image_id = $1', [id])
         idFromBody.rows[0] ? idFromBody = idFromBody.rows[0].image_id : idFromBody = null
     }
 
@@ -32,6 +34,9 @@ module.exports = async (req, res) => {
             console.log(err)
             res.status(500).send(`Erro ao deletar o arquivo: ${err.message}`);
         }
+        finally {
+            if(client) client.release()
+        }
     }else if (!id) {
         console.log('\x1b[33m item não foi deletado pois está vazio! \x1b[0m')
         res.status(200).send('item não foi deletado pois está vazio!')
@@ -42,4 +47,5 @@ module.exports = async (req, res) => {
         res.status(200).send('Imagem não foi deletada porquê já se encontra no banco de dados..')
         return
     }
+
 }
