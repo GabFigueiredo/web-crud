@@ -140,7 +140,7 @@ export function Form({ createModal, setCreateModal, selectedItem, option, setOpt
     const CreateButton = () =>  {
         const { enqueueSnackbar } = useSnackbar()
 
-        if (option != 'edit') {
+        if (option !== 'edit') {
             return (
                 <div style={{display: 'flex', justifyContent: 'center', marginTop: '35px'}}>
                 <Button

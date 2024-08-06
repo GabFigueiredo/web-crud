@@ -1,15 +1,50 @@
+:root {
+    --black: #0C0C0C;
+    --gray: #141414;
+    --light-gray: #9C9C9C;
+    --purple: #3E2A7B;
+    --blue-color: #0093A6;
+    --hover-color: #424242;
+}
+
 .header {
-    display: grid;
-    /* Animation background */
-    /* Animation Background */
-    grid-template-columns: 1.5fr 4fr 1.5fr;
-    background-image: linear-gradient(90deg,
-            hsl(236deg 69% 23%) 0%,
-            hsl(216deg 100% 23%) 20%,
-            hsl(209deg 100% 26%) 40%,
-            hsl(204deg 100% 29%) 60%,
-            hsl(198deg 100% 31%) 80%,
-            hsl(195deg 78% 36%) 100%);
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    background-color: var(--gray);
+    width: 300px;
+    padding: 20px;
+    height: 100%;
+    gap: 30px;
+}
+
+.box {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    margin: 20px;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logoBox {
+    display: flex;
+    flex-direction: column;
+    gap: 35px;
+    height: min-content;
+    width: 100%;
+    padding-top: 25px;
+}
+
+.borderGradient {
+    width: 100%;
+    height: 2px; /* altura da borda */
+    background-image: linear-gradient(
+        90deg,
+        hsl(255deg 49% 32%) 0%,
+        hsl(203deg 100% 32%) 50%,
+        hsl(187deg 100% 33%) 100%
+    );
 }
 
 @keyframes gradient {
@@ -39,8 +74,9 @@
 
 .main {
     grid-column: 2/3;
-    background-color: #1E2021;
+    background-color: var(--gray);
     height: fit-content;
+    align-self: center;
 }
 
 .searchBox {
@@ -51,23 +87,18 @@
 }
 
 .h1 {
-    font-weight: 300;
-    font-size: 50px;
+    font-weight: 500;
+    font-size: 30px;
     height: min-content;
     margin: 0px 0px 0px 10px;
 }
 
 .center {
-    display: grid;
-    background-color: #131516;
-    grid-template-columns: 1.5fr 4fr 1.5fr;
-}
-
-.box {
-    grid-column: 2/3;
+    background-color: var(--black);
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
+    margin-left: 70px;
 }
 
 .input {
@@ -91,8 +122,6 @@
 .li:hover {
     background-color: #383838;
 }
-
-.li:last-child {}
 
 .h3 {
     margin: 0;
@@ -134,7 +163,10 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    height: 100%;
+    margin-left: 18px;
+    margin-right: 25px;
+    margin-top: 25px;
+    gap: 15px;
 }
 
 .loginBox {
@@ -156,30 +188,19 @@
 }
 
 
-.mdiPlus {
-    grid-column: 1/2;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.updateMdi {
-    grid-column: 3/4;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
+.mdiPlus,
+.updateMdi,
 .mdiTrashCanOutline {
-    grid-column: 2/3;
     display: flex;
-    justify-content: center;
     align-items: center;
+    border-radius: 5px;
+    gap: 20px;
+    padding: 10px;
 }
 
 .mdiPlus:hover,
 .mdiTrashCanOutline:hover,
 .updateMdi:hover {
-    background-color: #007ec7;
+    background-color: var(--hover-color);
     cursor: pointer;
 }

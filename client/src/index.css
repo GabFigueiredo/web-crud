@@ -1,3 +1,23 @@
+:root {
+  --black: #0C0C0C;
+  --gray: #141414;
+  --light-gray: #9C9C9C;
+  --purple: #3E2A7B;
+  --blue: #0093A6;
+  height: 100%;
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden; /* Adicione esta linha para evitar rolagem */
+}
+
+#root {
+    height: 100%;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -5,7 +25,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #131516;
+  background-color: var(--black);
   height: 100%;
   color: white;
 }

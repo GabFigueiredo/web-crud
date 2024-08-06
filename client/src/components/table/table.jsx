@@ -1,25 +1,28 @@
 import {React, useState, useEffect} from "react";
-import { Modal } from "../Modal/modal";
 import styles from "../home/home.module.css"
 import axios from 'axios'
-import Icon from '@mdi/react';
-import { mdiMagnify } from '@mdi/js'
+import { DataGrid } from '@mui/x-data-grid';
 
-export function Table() {
+const columns = [
+    { field: 'id', headerName: 'ID', width: 100 },
+    { field: 'nome', headerName: 'Viagem', width: 250 },
+    { field: 'destino', headerName: 'Destino', width: 170 },
+    { field: 'descricao', headerName: 'Descrição', width: 180, },
+    { field: 'duracao', type: 'number', headerName: 'Duração', width: 150, },
+    { field: 'preco', type: 'number', headerName: 'Preço', width: 150, },
+  ];
+
+export function Table({ setSelectedRows }) {
     const [items, setItems] = useState([])
-    const [readModal, setReadModal] = useState(false)
-    const [selectedItem, setSelectedItem] = useState({})
 
-    function titleClick(item) {
-        setReadModal(true)
-        setSelectedItem(item)
-    }
+    const onRowSelectionModelChange = (selectedRow) => setSelectedRows(selectedRow)
 
     useEffect(() => {
         async function axiosGet() {
             try {
                const response = await axios.get('http://localhost:5000/data')
                setItems(response.data)
+               console.log(response.data)
            } catch(error) {
                 console.error("Erro ao fazer a busca de dados", (error))
             }  
@@ -28,43 +31,40 @@ export function Table() {
    }, [])
     
     return (<>
-                <nav className={styles.navbar}>
-            <div className={styles.searchBox}>
-                <Icon className={styles.icon} path={mdiMagnify} size={1.5}></Icon>
-            </div>
-        </nav>
         <div className={styles.center}>
             <main className={styles.main}>
-                <div className={styles.category}>
-                     <div className={styles.trip}>
-                        <p className={styles.pCategory}>Viagem</p>
-                     </div>
-                     <div className={styles.duration}>
-                        <p className={styles.pCategory}>Duração</p>
-                     </div>
-                     <div>
-                     <p className={styles.pCategory}>Disponibilidade</p>
-                     </div>
-                </div>
-                <ul className={styles.ul}>
-                    {items.map((item, index) => {
-                        return <li className={styles.li}key={index}>
-                                    <div className={styles.destiny}>
-                                        <h3 className={styles.h3} onClick={() => titleClick(item)}>{item.nome}</h3>
-                                        <p className={styles.pDestiny}>{item.destino}</p>
-                                    </div>
-                                    <div>
-                                        <p className={styles.pDestiny}>{item.duracao} Dias</p>
-                                    </div>
-                                    <div>
-                                        <p className={styles.pDestiny}>{item.datas_disponiveis}</p>
-                                    </div>
-                                </li>
-                    })}
-                </ul>
+                <DataGrid sx={{
+                    color: 'white',
+                    border: 'solid 2px #2E2E2E',
+                    backgroundColor: '',
+                    '--DataGrid-containerBackground': '#252525',
+                    '--DataGrid-rowBorderColor':'#252525',
+                    '.MuiButtonBase-root': {
+                        color: 'white',
+                        
+                    },
+
+                    '.MuiButtonBase-root, .MuiDataGrid-withBorderColor': {
+                        borderColor: '#252525'
+                    },
+
+                    '.MuiTablePagination-root': {
+                        color: 'white'
+                    }
+                }}
+                    rows={items}
+                    columns={columns}
+                    initialState={{
+                    pagination: {
+                        paginationModel: { page: 0, pageSize: 11 },
+                    },
+                    }}
+                    pageSizeOptions={[5, 10]}
+                    checkboxSelection
+                    onRowSelectionModelChange={onRowSelectionModelChange}
+                />
             </main>
         </div>
-        <Modal readModal={readModal} setReadModal={setReadModal} selectedItem={selectedItem}></Modal>
     </>
     )
 }
